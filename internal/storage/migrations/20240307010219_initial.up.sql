@@ -1,0 +1,21 @@
+BEGIN;
+
+CREATE TABLE projects (
+    id UUID PRIMARY KEY,
+    name TEXT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    archived BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE jobs (
+    id UUID PRIMARY KEY,
+    name TEXT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    archived BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+COMMIT;
