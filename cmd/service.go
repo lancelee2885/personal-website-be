@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/lancelee2885/personal-website-be/config"
 	internal "github.com/lancelee2885/personal-website-be/internal/service"
@@ -59,9 +60,17 @@ func service() *cobra.Command {
 				Storage: store,
 			})
 
+			corsConfig := cors.DefaultConfig()
+			corsConfig.AllowAllOrigins = true
+			corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
+			corsConfig.AllowHeaders = []string{"Origin", "Content-Type", "Accept", "Authorization"}
+			corsConfig.ExposeHeaders = []string{"Content-Length"}
+			corsConfig.AllowCredentials = true
+
 			router := gin.New()
 			router.Use(gin.Logger())
 			router.Use(gin.Recovery())
+			router.Use(cors.New(corsConfig))
 
 			// Register routes and handlers
 			router.POST("/entities", backend.CreateEntity)
